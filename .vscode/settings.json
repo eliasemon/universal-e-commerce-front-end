@@ -1,0 +1,20 @@
+{
+	// config related to code formatting
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
+	"lineEnding": "crlf",
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"typescript.disableAutomaticTypeAcquisition": true,
+	"javascript.validate.enable": false, // it's disable all built-in syntax checking
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+		"source.fixAll.tslint": "explicit"
+	},
+	"cSpell.words": [
+		"commitlint"
+	]
+}

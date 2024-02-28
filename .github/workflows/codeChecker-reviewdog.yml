@@ -1,0 +1,66 @@
+name: reviewdog
+
+on:
+  pull_request:
+    branches: [ develop ]
+  push:
+    branches: [ develop ]
+
+jobs:
+  biome:
+    name: Runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull_requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+
+  automated-test:
+    name: Test and Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['>=18.0.0 <=20.11.1']
+
+    env:
+      NODE_ENV: 'development'
+      cache-name: ul-fe-cache-node-modules
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore cached
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Project Dependencies
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: npm run workspace:setup
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Run Build
+        run: npm run build
+
+      - name: Save Cache
+        id: cache-save
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.npm
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
