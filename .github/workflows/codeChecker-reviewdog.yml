@@ -2,9 +2,9 @@ name: reviewdog
 
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [ develop,main ]
   push:
-    branches: [ develop ]
+    branches: [ develop,main ]
 
 jobs:
   biome:
@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull_requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -24,9 +23,6 @@ jobs:
   automated-test:
     name: Test and Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['>=18.0.0 <=20.11.1']
 
     env:
       NODE_ENV: 'development'
@@ -39,7 +35,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20.11.1
+
+      - run: npm ci
 
       - name: Restore cached
         id: cache-restore
@@ -50,7 +48,7 @@ jobs:
 
       - name: Install Project Dependencies
         if: steps.cache-restore.outputs.cache-hit != 'true'
-        run: npm run workspace:setup
+        run: npm ci
 
       - name: Run Tests
         run: npm run test

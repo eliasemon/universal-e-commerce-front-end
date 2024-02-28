@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [ develop,main ]
+  push:
+    branches: [ develop,main ]
+
+jobs:
+  automated-test:
+    permissions:
+      contents: read  # Only read access is needed for this step
+      issues: write
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.1
+
+      - run: npm ci
+
+      - name: Run Build
+        run: npm run build

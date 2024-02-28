@@ -1,0 +1,26 @@
+name: Check Specific Files and Folders
+
+on:
+  push:  # Run on every push event
+
+jobs:
+  check-changes:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: List changed files and directories
+      run: |
+        git fetch origin ${{ github.sha }}
+        git diff --name-only --diff-filter=d origin/{{ github.sha }}...HEAD > changed_paths.txt
+
+    - name: Check if specific files or folders changed
+      run: |
+        cat changed_paths.txt | grep -E '^(biome.json|jest.config.ts|tsconfig.json|^.github\/|^.husky\/)' > matched_changes.txt
+        if [ -s matched_changes.txt ]; then
+          echo "Specific files or folders changed: $(cat matched_changes.txt)"
+          exit 1  # Fail the workflow if any of the specified files or folders changed
+        fi
+
