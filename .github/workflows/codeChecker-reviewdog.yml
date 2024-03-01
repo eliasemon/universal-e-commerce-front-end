@@ -25,7 +25,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      NODE_ENV: 'development'
       cache-name: ul-fe-cache-node-modules
 
     steps:
