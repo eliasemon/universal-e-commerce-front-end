@@ -22,6 +22,7 @@ jobs:
 
   automated-test:
     name: Test and Build
+    needs: biome
     runs-on: ubuntu-latest
 
     env:
