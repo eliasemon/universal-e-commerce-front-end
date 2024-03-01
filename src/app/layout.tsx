@@ -1,14 +1,27 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+	weight: ["300", "400", "500", "600", "700"],
+	display: "swap",
+	subsets: ["latin"],
+	variable: "--inter",
+});
+
+const poppins = Poppins({
+	weight: ["300", "400", "500", "600", "700"],
+	display: "swap",
+	subsets: ["latin"],
+	variable: "--poppins",
+});
 
 export const metadata: Metadata = {
-	title: "New App",
-	description: "App",
+	title: "Universal E-commerce",
+	description:
+		"Shop effortlessly from anywhere with our web platform. Explore a vast selection, discover amazing deals, and purchase your favorites - all online.",
 };
-
+const name = "tomoy";
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -16,7 +29,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>{children}</body>
+			<body className={`${poppins.variable} ${inter.variable}`}>
+				{children}
+			</body>
 		</html>
 	);
 }
