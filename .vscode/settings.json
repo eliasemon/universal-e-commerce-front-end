@@ -3,7 +3,6 @@
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
-	"lineEnding": "crlf",
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},

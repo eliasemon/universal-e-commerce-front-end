@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Sofia } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 	description:
 		"Shop effortlessly from anywhere with our web platform. Explore a vast selection, discover amazing deals, and purchase your favorites - all online.",
 };
-
+const name = "tomoy";
 export default function RootLayout({
 	children,
 }: Readonly<{
