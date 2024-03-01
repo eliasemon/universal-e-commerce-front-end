@@ -16,5 +16,7 @@
 	},
 	"cSpell.words": [
 		"commitlint"
-	]
+	],
+	"css.validate": false,
+	"tailwindCSS.emmetCompletions": true
 }
