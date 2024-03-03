@@ -6,8 +6,8 @@ on:
 jobs:
   release:
     permissions:
-      contents: read  # Only read access is needed for this step
-      issues: write   # Needed to create a release comment
+      contents: write
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
