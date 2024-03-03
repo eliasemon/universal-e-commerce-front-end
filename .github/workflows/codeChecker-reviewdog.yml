@@ -39,8 +39,6 @@ jobs:
         with:
           node-version: 20.11.1
 
-      - run: npm ci
-
       - name: Restore cached
         id: cache-restore
         uses: actions/cache/restore@v4
